@@ -1,6 +1,5 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from fastapi.encoders import jsonable_encoder
 import logging
 from logging.config import dictConfig
 from config import log_config
@@ -33,6 +32,11 @@ dados_alunos = [
     }
 ]
 
+@app.get("/")
+async def root():
+    logger.info("Boas vindas")
+    return {"response":"Boas vindas ao cadastro de alunos."}
+
 
 @app.get("/alunos")
 async def mostrar_alunos ():
@@ -51,11 +55,11 @@ async def criar_alunos(aluno: Aluno):
         logger.info("Aluno registrado.")
         return aluno
     except:
-        logger.error("Not possible post now")
+        logger.error("Não é possivel fazer o POST")
         return {"response":"Não foi possivel adicionar um aluno, tente novamente mais tarde."}
     
 
-@app.put("/alunos/editar/{matricula}", response_model = Aluno)
+@app.put("/alunos/editar/{matricula}")
 async def editar_aluno(matricula:str, aluno:UpdateAluno):
     try:
         busca = list(filter(lambda estudante: estudante["matricula"] == matricula, dados_alunos))
@@ -77,7 +81,7 @@ async def editar_aluno(matricula:str, aluno:UpdateAluno):
             busca[0]['faculdade'] = aluno.faculdade
 
         logger.info("Aluno atualizado com sucesso!")
-        return busca
+        return aluno
     except:
         logger.error("Não foi possivel atualizar")
 
