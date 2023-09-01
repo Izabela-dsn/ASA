@@ -47,7 +47,7 @@ async def mostrar_alunos ():
         logger.error('Não foi possivel mostrar os estudantes.')
 
 
-@app.post("/alunos/criar")
+@app.post("/alunos")
 async def criar_alunos(aluno: Aluno):
     try:
         aluno = aluno.dict()
@@ -59,7 +59,7 @@ async def criar_alunos(aluno: Aluno):
         return {"response":"Não foi possivel adicionar um aluno, tente novamente mais tarde."}
     
 
-@app.put("/alunos/editar/{matricula}")
+@app.put("/alunos/{matricula}")
 async def editar_aluno(matricula:str, aluno:UpdateAluno):
     try:
         busca = list(filter(lambda estudante: estudante["matricula"] == matricula, dados_alunos))
@@ -87,7 +87,7 @@ async def editar_aluno(matricula:str, aluno:UpdateAluno):
 
     
 
-@app.delete("/alunos/apagar/{matricula}")
+@app.delete("/alunos/{matricula}")
 async def apagar_aluno(matricula:str):
     try:
         busca = list(filter(lambda estudante: estudante["matricula"] == matricula, dados_alunos))
