@@ -31,5 +31,17 @@ class Aluno(Base):
     endereco    = Column(String, nullable=True)
 
 
+class Professor(Base):
+    __tablename__= 'professor'
+    
+    id          = Column(Integer, primary_key=True)
+    nome        = Column(String)
+    email       = Column(String)
+    cpf         = Column(String)
+    endereco    = Column(String)
+    numero      = Column(String)
+    complemento = Column(String)
+    cidade      = Column(String)
+    estado      = Column(String)
 
 Base.metadata.create_all(engine)
