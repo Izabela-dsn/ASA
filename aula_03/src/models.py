@@ -1,14 +1,14 @@
-from sqlalchemy import create_engine, Column, Integer, String, Boolean
+from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.engine import URL
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 
 # definindo a URL para conexão no banco
 url = URL.create(
     drivername='postgresql+psycopg2',
     username='postgres',
     password='banco',
-    host='localhost',
-    database='faculdade',
+    host='172.18.0.20',
+    database='postgres',
     port=5432
 )
 
@@ -43,5 +43,22 @@ class Professor(Base):
     complemento = Column(String)
     cidade      = Column(String)
     estado      = Column(String)
+
+class Curso(Base):
+    __tablename__ = 'curso'
+    id           = Column(Integer, primary_key=True)
+    descricao    = Column(String, nullable=True)
+    professor_id = Column(Integer, ForeignKey('professor.id'), primary_key=True)
+    professor    = relationship(Professor)
+
+
+class CursoAluno(Base):
+    __tablename__ = 'cursoaluno'
+    idCurso   = Column(Integer, ForeignKey('curso.id'), primary_key=True)
+    idAluno   = Column(Integer, ForeignKey('aluno.id'), primary_key=True)
+    curso = relationship(Curso)
+    aluno = relationship(Aluno)
+
+
 
 Base.metadata.create_all(engine)

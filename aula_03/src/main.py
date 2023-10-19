@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from classes import Request_Aluno
+from classAluno import Request_Aluno
 from models import Aluno, session
 
 app = FastAPI()
