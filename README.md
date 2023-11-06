@@ -3,9 +3,10 @@
 A matéria cobre a parte de backend utilizando as seguintes tecnologias e conceitos:
 
 * Python
-  * FastAPI
-  * Logs
+* FastAPI
+* Logs
 * ORM - API
-* Docker
+* Docker & Docker Compose
 * Postgres
-* e mais...
+* Mensageria - RabbitMQ
+* e muito mais...
