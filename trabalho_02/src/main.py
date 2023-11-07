@@ -3,10 +3,11 @@ from classes import Request_Aluno, Request_Professor, Request_Curso, Request_Cur
 from models import Aluno, session, Professor, Curso, CursoAluno
 import logging 
 from logging.config import dictConfig
-import log_config
-from send import send_payload
-from receiver import receiver_send_db
+from log_config import log_config
+from send_aluno import send_payload
+from receiver_aluno import receiver_send_db
 
+dictConfig(log_config)
 app = FastAPI()
 logger = logging.getLogger('foo-logger')
 
@@ -111,9 +112,8 @@ async def criar_aluno(request_aluno: Request_Aluno):
 		#session.add(aluno)
 		#session.commit()
 		send_payload(aluno2)
-		print('oi')
 		receiver_send_db()
-		print('oi')
+		
 		
 		return {
 		"status": "SUCCESS",
