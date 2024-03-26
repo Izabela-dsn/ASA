@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from logging.config import dictConfig
 import logging
-from src.config import log_config
+from config import log_config
 
 dictConfig(log_config)
 
